@@ -40,6 +40,11 @@ public class TransactionImpl implements Transaction {
         this.type = type;
     }
 
+    public TransactionImpl(Long bookId, Long userId) {
+        this.book = BookImpl.of(bookId);
+        this.user = UserImpl.of(userId);
+    }
+
     public static TransactionImpl of() {
         return new TransactionImpl();
     }
@@ -50,6 +55,10 @@ public class TransactionImpl implements Transaction {
 
     public static TransactionImpl of(Long bookId, Long userId, TransactionType type) {
         return new TransactionImpl(bookId, userId, type);
+    }
+
+    public static TransactionImpl of(Long bookId, Long userId) {
+        return new TransactionImpl(bookId, userId);
     }
 
     @Override

@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: lms
+  h2:
+    console:
+      enabled: true
+  r2dbc:
+    generate-unique-name: false
+  datasource:
+    name:
+    url: jdbc:h2:mem:librarydb
+    driverClassName: org.h2.Driver
+    username: user
+    password: psswd
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect

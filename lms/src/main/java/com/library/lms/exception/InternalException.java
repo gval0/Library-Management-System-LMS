@@ -6,10 +6,9 @@ import lombok.Getter;
 public class InternalException extends RuntimeException {
 
     private final InternalExceptionReason reason;
-    private final String message;
 
     public InternalException(InternalExceptionReason reason, String message) {
+        super(message);
         this.reason = reason;
-        this.message = message;
     }
 }

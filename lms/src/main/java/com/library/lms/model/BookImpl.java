@@ -40,8 +40,8 @@ public class BookImpl implements Book {
         return new BookImpl();
     }
 
-    public static BookImpl of(String title, String author, String isbn, BookStatus status, UserEntity currentUser){
-        return new BookImpl(title, author, isbn, status, currentUser);
+    public static BookImpl of(Long id, String title, String author, String isbn, BookStatus status, UserEntity currentUser){
+        return new BookImpl(id, title, author, isbn, status, currentUser);
     }
 
     public static Book of(Long bookId) {

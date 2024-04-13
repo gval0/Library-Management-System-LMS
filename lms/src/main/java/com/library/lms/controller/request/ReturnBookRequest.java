@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BorrowBookRequest {
+public class ReturnBookRequest {
 
     @NotNull
     private Long bookId;
@@ -24,6 +24,7 @@ public class BorrowBookRequest {
 
     @JsonIgnore
     public Transaction getTransaction(){
-        return TransactionImpl.of(bookId, userId, TransactionType.BORROW);
+        return TransactionImpl.of(bookId, userId);
     }
+
 }

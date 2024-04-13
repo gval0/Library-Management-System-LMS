@@ -17,16 +17,20 @@ public enum InternalExceptionReason implements ExceptionReason, Serializable {
 
     USER_NOT_FOUND(1003, "User not found"),
 
-    USER_ADMIN_NOT_ALLOWED_TO_BORROW(1004, "Admin user not allowed to borrow book");
+    USER_ADMIN_NOT_ALLOWED_TO_BORROW(1004, "Admin user not allowed to borrow book"),
+
+    BOOK_AVAILABLE(1005, "Book is not borrowed"),
+
+    BOOK_OWNER_AND_USER_MISMATCH(1006, "User has not borrowed this book");
 
     private final int reasonCode;
 
     private final String reason;
 
-    @Override
-    public int getReasonCode() {
-        return reasonCode;
-    }
+//    @Override
+//    public int getReasonCode() {
+//        return reasonCode;
+//    }
 
     @Override
     public String getReason() {

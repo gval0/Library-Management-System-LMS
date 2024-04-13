@@ -3,10 +3,13 @@ package com.library.lms.service.bo;
 import com.library.lms.controller.request.CreateBookRequest;
 import com.library.lms.controller.request.UpdateBookRequest;
 import com.library.lms.entity.BookEntity;
+import com.library.lms.exception.InternalException;
+import com.library.lms.exception.InternalExceptionReason;
 import com.library.lms.model.Book;
 import com.library.lms.util.Mapper;
 import com.library.lms.repo.BookRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,16 +23,23 @@ public class BookServiceImpl implements BookService {
     }
 
     public Book getById(Long id) {
-        return Mapper.getBook(bookRepo.findById(id).orElseThrow());
+        return Mapper.getBook(bookRepo.findById(id)
+                .orElseThrow(() -> new InternalException(InternalExceptionReason.BOOK_NOT_FOUND, "Book not found with id: " + id)));
+    }
+
+    public BookEntity getEntityById(Long id) {
+        return bookRepo.findById(id)
+                .orElseThrow(() -> new InternalException(InternalExceptionReason.BOOK_NOT_FOUND, "Book not found with id: " + id));
     }
 
     public Book update(Long id, UpdateBookRequest request) {
-        // todo custom exception
-        BookEntity oldBook = bookRepo.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
+        bookRepo.findById(id)
+                .orElseThrow(() -> new InternalException(InternalExceptionReason.BOOK_NOT_FOUND, "Book not found with id: " + id));
         return Mapper.getBook(bookRepo.save(request.toEntity()));
     }
 
     public void delete(Long id) {
-        bookRepo.delete(bookRepo.findById(id).orElseThrow(() -> new RuntimeException("Book not found")));
+        bookRepo.delete(bookRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Book not found")));
     }
 }

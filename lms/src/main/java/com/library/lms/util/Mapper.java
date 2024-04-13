@@ -10,6 +10,7 @@ public class Mapper {
     public static Book getBook(BookEntity bookEntity) {
 
         return BookImpl.of(
+                bookEntity.getId(),
                 bookEntity.getTitle(),
                 bookEntity.getAuthor(),
                 bookEntity.getIsbn(),
