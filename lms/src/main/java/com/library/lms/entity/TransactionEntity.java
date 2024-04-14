@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
@@ -35,6 +36,7 @@ public class TransactionEntity {
     @Enumerated(EnumType.STRING)
     private TransactionType type;
 
+    @CreationTimestamp
     @Column(name = "date")
     private Date date;
 }

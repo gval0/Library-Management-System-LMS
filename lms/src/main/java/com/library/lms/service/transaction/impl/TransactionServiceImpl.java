@@ -13,8 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -33,7 +31,6 @@ public class TransactionServiceImpl implements TransactionService {
         bookRepo.save(bookEntity);
 
         TransactionEntity transactionEntity = transaction.getTransactionEntity();
-        transactionEntity.setDate(new Date());
         transactionEntity.setType(TransactionType.BORROW);
 
         return Mapper.getTransaction(transactionRepo.save(transactionEntity));
@@ -49,7 +46,6 @@ public class TransactionServiceImpl implements TransactionService {
         bookRepo.save(bookEntity);
 
         TransactionEntity transactionEntity = transaction.getTransactionEntity();
-        transactionEntity.setDate(new Date());
         transactionEntity.setType(TransactionType.RETURN);
 
         return Mapper.getTransaction(transactionRepo.save(transactionEntity));
