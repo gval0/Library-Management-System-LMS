@@ -57,3 +57,6 @@ Imagine a small library where users can borrow and return books. Your task is to
 
 #### **Submission**
 The candidate should submit the source code with clear instructions on how to run it. A postman collection or an equivalent for the APIs would be appreciated.
+
+#### **How to run**
+run LmsApplication -> main
