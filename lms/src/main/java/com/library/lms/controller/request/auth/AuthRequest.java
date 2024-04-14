@@ -1,5 +1,6 @@
-package com.library.lms.controller.request;
+package com.library.lms.controller.request.auth;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthRequest {
 
-        private String userName;
-        private String password;
+    @NotNull
+    private String userName;
+
+    @NotNull
+    private String password;
 
 }

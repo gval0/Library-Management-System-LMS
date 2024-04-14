@@ -1,7 +1,7 @@
 package com.library.lms.service.bo;
 
-import com.library.lms.controller.request.CreateBookRequest;
-import com.library.lms.controller.request.UpdateBookRequest;
+import com.library.lms.controller.request.book.CreateBookRequest;
+import com.library.lms.controller.request.book.UpdateBookRequest;
 import com.library.lms.entity.BookEntity;
 import com.library.lms.exception.InternalException;
 import com.library.lms.exception.InternalExceptionReason;
@@ -9,7 +9,6 @@ import com.library.lms.model.Book;
 import com.library.lms.util.Mapper;
 import com.library.lms.repo.BookRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,6 +39,6 @@ public class BookServiceImpl implements BookService {
 
     public void delete(Long id) {
         bookRepo.delete(bookRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Book not found")));
+                .orElseThrow(() -> new InternalException(InternalExceptionReason.BOOK_NOT_FOUND, "Book not found with id: " + id)));
     }
 }

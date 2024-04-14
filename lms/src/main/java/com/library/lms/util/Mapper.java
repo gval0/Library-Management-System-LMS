@@ -5,6 +5,8 @@ import com.library.lms.entity.TransactionEntity;
 import com.library.lms.entity.UserEntity;
 import com.library.lms.model.*;
 
+import java.util.List;
+
 public class Mapper {
 
     public static Book getBook(BookEntity bookEntity) {
@@ -25,7 +27,7 @@ public class Mapper {
                 userEntity.getId(),
                 userEntity.getUsername(),
                 userEntity.getUserRole(),
-                userEntity.getBorrowedBooks().stream().map(Mapper::getBook).toList());
+                userEntity.getBorrowedBooks() != null ? userEntity.getBorrowedBooks().stream().map(Mapper::getBook).toList() : List.of(BookImpl.of(22222L)));
     }
 
     public static Transaction getTransaction(TransactionEntity transactionEntity) {

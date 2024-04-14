@@ -1,6 +1,8 @@
 package com.library.lms.Config;
 
-import com.library.lms.service.bo.UserService;
+import com.library.lms.exception.InternalException;
+import com.library.lms.exception.InternalExceptionReason;
+import com.library.lms.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,11 +17,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @RequiredArgsConstructor
 public class AppConfig {
 
-    private final UserService userService;
+    private final UserRepo userRepo;
 
     @Bean
     public UserDetailsService userDetailsService() {
-       return username -> userService.getByUserName(username);
+        return username -> userRepo.findByUsername(username)
+                .orElseThrow(() -> new InternalException(InternalExceptionReason.USER_NOT_FOUND, "User not found with username: " + username));
     }
 
     @Bean
@@ -27,7 +30,7 @@ public class AppConfig {
 
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService());
-        provider.setPasswordEncoder(new BCryptPasswordEncoder());
+        provider.setPasswordEncoder(passwordEncoder());
 
         return provider;
     }
@@ -35,6 +38,11 @@ public class AppConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }

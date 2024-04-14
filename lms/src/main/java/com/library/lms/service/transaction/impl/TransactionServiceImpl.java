@@ -1,7 +1,9 @@
 package com.library.lms.service.transaction.impl;
 
 import com.library.lms.entity.BookEntity;
+import com.library.lms.entity.TransactionEntity;
 import com.library.lms.entity.enums.BookStatus;
+import com.library.lms.entity.enums.TransactionType;
 import com.library.lms.model.Transaction;
 import com.library.lms.repo.BookRepo;
 import com.library.lms.repo.TransactionRepo;
@@ -9,7 +11,6 @@ import com.library.lms.service.transaction.TransactionService;
 import com.library.lms.util.Mapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -31,8 +32,11 @@ public class TransactionServiceImpl implements TransactionService {
         bookEntity.setUser(transaction.getUserEntity());
         bookRepo.save(bookEntity);
 
-        transaction.getTransactionEntity().setDate(new Date());
-        return Mapper.getTransaction(transactionRepo.save(transaction.getTransactionEntity()));
+        TransactionEntity transactionEntity = transaction.getTransactionEntity();
+        transactionEntity.setDate(new Date());
+        transactionEntity.setType(TransactionType.BORROW);
+
+        return Mapper.getTransaction(transactionRepo.save(transactionEntity));
 
     }
 
@@ -44,8 +48,11 @@ public class TransactionServiceImpl implements TransactionService {
         bookEntity.setUser(null);
         bookRepo.save(bookEntity);
 
-        transaction.getTransactionEntity().setDate(new Date());
-        return Mapper.getTransaction(transactionRepo.save(transaction.getTransactionEntity()));
+        TransactionEntity transactionEntity = transaction.getTransactionEntity();
+        transactionEntity.setDate(new Date());
+        transactionEntity.setType(TransactionType.RETURN);
+
+        return Mapper.getTransaction(transactionRepo.save(transactionEntity));
 
     }
 }

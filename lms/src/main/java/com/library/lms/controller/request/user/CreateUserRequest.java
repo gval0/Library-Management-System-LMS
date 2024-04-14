@@ -1,9 +1,7 @@
-package com.library.lms.controller.request;
+package com.library.lms.controller.request.user;
 
+import com.library.lms.entity.UserEntity;
 import com.library.lms.entity.enums.UserRole;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,9 +12,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateUserRequest {
-    // todo after registration
+
     private String username;
 
     private String password;
 
+    private UserRole userRole;
+
+    public UserEntity toEntity() {
+
+        return UserEntity.builder()
+                .username(username)
+                .userRole(userRole)
+                .build();
+
+    }
 }

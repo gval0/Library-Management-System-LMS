@@ -1,29 +1,22 @@
 package com.library.lms.security;
 
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig  {
+public class SecurityConfig {
 
     private final JwtAuthenticationFilter authenticationFilter;
     private final AuthenticationProvider authenticationProvider;
@@ -34,9 +27,11 @@ public class SecurityConfig  {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.requestMatchers("/api/auth/user/**").permitAll()
+                        authorizeRequests
+                                .requestMatchers(AUTH_WHITELIST).permitAll()
                                 .anyRequest()
                                 .authenticated())
+                .headers(headers -> headers.frameOptions(Customizer.withDefaults()).disable())
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
@@ -46,20 +41,13 @@ public class SecurityConfig  {
         return http.build();
     }
 
+    private static final String[] AUTH_WHITELIST = {
+            "api/v1/auth/**",
+            "/v3/api-docs/**",
+            "/v3/api-docs.yaml",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/h2-console/**"
+    };
 
-    //todo delete
-//    @Bean
-//    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
-//                .csrf(csrf -> csrf.ignoringRequestMatchers("/**"))
-//                .authorizeRequests(authorizeRequests ->
-//                    authorizeRequests
-//                    .anyRequest().authenticated()
-//            )
-//                .headers(headers -> headers.frameOptions(Customizer.withDefaults()).disable())
-//            .httpBasic(withDefaults());
-////            .formLogin(withDefaults());
-//        return http.build();
-//    }
 }

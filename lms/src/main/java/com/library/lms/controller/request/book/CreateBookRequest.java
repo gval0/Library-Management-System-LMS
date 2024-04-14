@@ -1,4 +1,4 @@
-package com.library.lms.controller.request;
+package com.library.lms.controller.request.book;
 
 import com.library.lms.entity.BookEntity;
 import com.library.lms.entity.enums.BookStatus;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateBookRequest {
+public class CreateBookRequest {
 
     @NotNull
     private String title;

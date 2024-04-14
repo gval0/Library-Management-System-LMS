@@ -123,6 +123,11 @@ public class TransactionImpl implements Transaction {
 
     @Override
     public TransactionEntity getTransactionEntity() {
-        return null;
+
+        return TransactionEntity.builder()
+                .user(userEntity)
+                .book(bookEntity)
+                .build();
+
     }
 }

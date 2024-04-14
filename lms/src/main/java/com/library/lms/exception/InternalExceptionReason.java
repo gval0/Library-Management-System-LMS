@@ -21,16 +21,13 @@ public enum InternalExceptionReason implements ExceptionReason, Serializable {
 
     BOOK_AVAILABLE(1005, "Book is not borrowed"),
 
-    BOOK_OWNER_AND_USER_MISMATCH(1006, "User has not borrowed this book");
+    BOOK_OWNER_AND_USER_MISMATCH(1006, "User has not borrowed this book"),
+
+    USER_ALREADY_EXISTS(1007, "User already exists");
 
     private final int reasonCode;
 
     private final String reason;
-
-//    @Override
-//    public int getReasonCode() {
-//        return reasonCode;
-//    }
 
     @Override
     public String getReason() {

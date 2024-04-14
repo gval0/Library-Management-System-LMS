@@ -1,14 +1,14 @@
 package com.library.lms.controller;
 
-import com.library.lms.controller.request.CreateBookRequest;
-import com.library.lms.controller.request.UpdateBookRequest;
+import com.library.lms.controller.request.book.CreateBookRequest;
+import com.library.lms.controller.request.book.UpdateBookRequest;
 import com.library.lms.model.Book;
 import com.library.lms.service.bo.BookService;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
@@ -18,6 +18,7 @@ import jakarta.validation.Valid;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/book")
+@PreAuthorize("hasRole('ADMIN')")
 public class BookController {
 
     private final BookService bookService;
