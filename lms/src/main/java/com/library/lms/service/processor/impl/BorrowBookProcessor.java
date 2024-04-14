@@ -21,7 +21,6 @@ import java.util.Map;
 
 @Slf4j
 @Component
-//@RequiredArgsConstructor
 public class BorrowBookProcessor extends TransactionProcessor {
 
     private final TransactionService transactionService;

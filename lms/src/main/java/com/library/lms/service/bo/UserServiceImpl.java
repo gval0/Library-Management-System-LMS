@@ -10,9 +10,11 @@ import com.library.lms.repo.UserRepo;
 import com.library.lms.util.Mapper;
 import com.library.lms.security.JwtService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {

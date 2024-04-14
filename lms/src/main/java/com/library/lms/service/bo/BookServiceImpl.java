@@ -9,8 +9,10 @@ import com.library.lms.model.Book;
 import com.library.lms.util.Mapper;
 import com.library.lms.repo.BookRepo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {

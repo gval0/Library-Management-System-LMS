@@ -7,6 +7,7 @@ import com.library.lms.entity.enums.TransactionType;
 import com.library.lms.model.Transaction;
 import com.library.lms.repo.BookRepo;
 import com.library.lms.repo.TransactionRepo;
+import com.library.lms.service.Message.MessageService;
 import com.library.lms.service.transaction.TransactionService;
 import com.library.lms.util.Mapper;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepo transactionRepo;
 
+//    private final MessageService messageService;
+
     @Override
     public Transaction borrowBook(Transaction transaction) {
 
@@ -32,6 +35,8 @@ public class TransactionServiceImpl implements TransactionService {
 
         TransactionEntity transactionEntity = transaction.getTransactionEntity();
         transactionEntity.setType(TransactionType.BORROW);
+
+//        messageService.sendMessage(transactionEntity.toString());
 
         return Mapper.getTransaction(transactionRepo.save(transactionEntity));
 
@@ -47,6 +52,8 @@ public class TransactionServiceImpl implements TransactionService {
 
         TransactionEntity transactionEntity = transaction.getTransactionEntity();
         transactionEntity.setType(TransactionType.RETURN);
+
+//        messageService.sendMessage(transactionEntity.toString());
 
         return Mapper.getTransaction(transactionRepo.save(transactionEntity));
 
